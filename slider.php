@@ -39,6 +39,7 @@ include('include/header.php');
                 <th>Titre</th>
                 <th>Description</th>
                 <th>image</th>
+                <th>Position</th>
                 <th>Plus</th>
             </tr>
         </thead>
@@ -86,6 +87,43 @@ include('include/header.php');
     </form>
 
 </div>
+<br>
+<br>
+<br>
+
+<div class="popup" id="popupSlider">
+    <form action="update_slider.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" id="sliderId"> <!-- ID caché pour l'update -->
+        <div class="popup_content" id="popup">
+            <div class="popup_content_items space_padding">
+                <div class="create_items">
+                    <p class="space_padding_left">Nom du service</p>
+                    <input type="text" placeholder="Entrez le nom du service..." name="titre">
+                </div>
+                <br>
+                <br>
+                <div class="create_items">
+                    <p class="space_padding_left">Description du service</p>
+                    <input type="text" placeholder="Entrez la description du service..." name="description">
+                </div>
+                <br>
+                <br>
+                <div class="create_items">
+                    <p class="space_padding_left">Uploader la photo avant</p>
+                    <input type="file" name="image">
+                </div>
+                <br>
+                <br>
+                <button type="submit" class="button">Modifier le service</button>
+                <button type="button" class="closePopupbtn flex" id="closePopupSlider">&times;</button>
+
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
 <br>
 <br>
 <br>

@@ -39,6 +39,7 @@ include('include/header.php')
                 <th>Titre</th>
                 <th>Image</th>
                 <th>Autres images</th>
+                <th>Position</th>
                 <th>Plus</th>
             </tr>
         </thead>

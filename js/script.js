@@ -1,40 +1,62 @@
-console.log('Test 1');
-
-new DataTable('#example');
-
-console.log('Test 2');
-
 $(document).ready(function () {
-    // Loop through each span with class starting with 'p'
+    console.log('Initializing DataTable');
+    new DataTable('#example');
+
+    // Active state for spans
     $('span[class^="p"]').each(function () {
         var spanClass = $(this).attr('class');
-        // Find the corresponding menu item and replace the class with 'active'
         $('.liens .' + spanClass).addClass('active').removeClass(spanClass);
     });
-});
 
-console.log('Popup 2');
-document.addEventListener("DOMContentLoaded", function () {
-    // Ouvrir la popup
-    document.getElementById("myBtn").addEventListener("click", function () {
-        const popup = document.getElementById("popup");
-        popup.style.display = "block";
+    // Open the create popup
+    $("#myBtn").on("click", function () {
+        $("#popup").show();
     });
 
-    // Fermer la popup
-    document.getElementById("closePopupBtn").addEventListener("click", function () {
-        document.getElementById("popup").style.display = "none";
+    // Close the create popup
+    $("#closePopupBtn").on("click", function () {
+        $("#popup").hide();
     });
-});
 
-console.log('Popup 4');
-
-$(document).ready(function () {
+    // Configure DataTable with descending order
     $('#example').DataTable({
-        "order": [[0, "desc"]], // Changez le 0 par l'index de votre colonne `id`
-        "destroy": true // Permet de détruire l'instance existante
+        "order": [[0, "desc"]],
+        "destroy": true
+    });
+
+    // Handle "Modifier" button clicks with AJAX
+    $(".voirPlusBtn").each(function () {
+        $(this).on("click", function () {
+            var sliderId = $(this).data("id");
+
+            // Fetch slider data with AJAX
+            $.ajax({
+                url: "get_slider.php",
+                method: "GET",
+                data: { id: sliderId },
+                dataType: "json",
+                success: function (data) {
+                    if (data.error) {
+                        console.log(data.error);
+                        alert(data.error);
+                    } else {
+                        // Populate popup fields with the received data
+                        $('#popupSlider input[name="titre"]').val(data.titre);
+                        $('#popupSlider input[name="description"]').val(data.description);
+                        $('#popupSlider input[name="id"]').val(data.id);
+                        $("#popupSlider").show();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Data loading error: ", error);
+                    alert("Une erreur s'est produite lors du chargement des données.");
+                }
+            });
+        });
+    });
+
+    // Close the edit popup
+    $("#popupSlider .closePopupbtn").on("click", function () {
+        $("#popupSlider").hide();
     });
 });
-
-
-console.log('Table 2');

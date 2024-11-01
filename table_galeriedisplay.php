@@ -27,7 +27,8 @@ foreach($result as $results) {
         }
         ?>
     </td>
-    <td><button class="button btns"><a href="created_service">Voir plus</a></button></td>
+    <td><?php echo $results["position"] ?></td>
+    <td><button class="button btns"><a href="created_service">Modifier</a></button></td>
 </tr>
 <?php
 }
