@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':images', $services_imgs_json, PDO::PARAM_STR);
        
         if ($stmt->execute()) {
-            header('Location:service.php');
+            header('Location:galerie.php');
         exit();
         } else {
             echo "Erreur lors de l'enregistrement dans la base de données";

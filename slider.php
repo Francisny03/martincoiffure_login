@@ -73,7 +73,13 @@ include('include/header.php');
                 <br>
                 <br>
                 <div class="create_items">
-                    <p class="space_padding_left">Uploader la photo avant</p>
+                    <p class="space_padding_left">Position</p>
+                    <input type="text" placeholder="entrez la position du slider..." name="position">
+                </div>
+                <br>
+                <br>
+                <div class="create_items">
+                    <p class="space_padding_left">Uploader la photo</p>
                     <input type="file" placeholder="aucun fichier n'a été sélectionné" name="image">
                 </div>
             </div>
@@ -97,19 +103,25 @@ include('include/header.php');
         <div class="popup_content" id="popup">
             <div class="popup_content_items space_padding">
                 <div class="create_items">
-                    <p class="space_padding_left">Nom du service</p>
-                    <input type="text" placeholder="Entrez le nom du service..." name="titre">
+                    <p class="space_padding_left">Nom du slider</p>
+                    <input type="text" placeholder="Entrez le titre..." name="titre">
                 </div>
                 <br>
                 <br>
                 <div class="create_items">
                     <p class="space_padding_left">Description du service</p>
-                    <input type="text" placeholder="Entrez la description du service..." name="description">
+                    <input type="text" placeholder="Entrez le sous-titre..." name="description">
                 </div>
                 <br>
                 <br>
                 <div class="create_items">
-                    <p class="space_padding_left">Uploader la photo avant</p>
+                    <p class="space_padding_left">Position</p>
+                    <input type="text" placeholder="entrez la position du slider..." name="position">
+                </div>
+                <br>
+                <br>
+                <div class="create_items">
+                    <p class="space_padding_left">Uploader la photo</p>
                     <input type="file" name="image">
                 </div>
                 <br>

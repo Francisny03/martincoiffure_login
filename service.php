@@ -100,6 +100,56 @@ include('include/header.php');
 <br>
 <br>
 
+<div class="popup" id="popupService">
+    <form action="update_service.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" id="serviceId"> <!-- ID caché pour l'update -->
+        <div class="popup_content" id="popup">
+            <div class="create_new space_bottom">
+                <p>Modifier un service</p>
+            </div>
+            <div class="popup_content_items space_padding">
+                <div class="create_items">
+                    <p class="space_padding_left">Nom du service</p>
+                    <input type="text" placeholder="entrez le nom du service..." name="titre">
+                </div>
+                <br>
+                <br>
+                <div class="create_items">
+                    <p class="space_padding_left">Description du service</p>
+                    <input type="text" placeholder="entrez la description du service..." name="description">
+                </div>
+                <br>
+                <br>
+                <div class="create_items">
+                    <p class="space_padding_left">Position</p>
+                    <input type="text" placeholder="entrez la position du service..." name="position">
+                </div>
+                <br>
+                <br>
+                <div class="create_items">
+                    <p class="space_padding_left">Uploader la photo avant</p>
+                    <input type="file" placeholder="aucun fichier n'a été sélectionné" name="image1">
+                </div>
+                <div class="create_items">
+                    <p class="space_padding_left">Uploader la photo arrière</p>
+                    <input type="file" placeholder="aucun fichier n'a été sélectionné" name="image2">
+                </div>
+            </div>
+
+            <div class="create_new space_top">
+                <button type="submit" class="button">Modifier un service</button>
+            </div>
+
+            <button type="button" class="closePopupbtn flex" id="closeServiceModifierBtn">&times;</button>
+        </div>
+    </form>
+
+</div>
+<br>
+<br>
+<br>
+
+
 
 
 <?php

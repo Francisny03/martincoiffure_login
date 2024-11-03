@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
     $id = (int)$_POST["id"];
     $titre = $_POST["titre"];
     $description = $_POST["description"];
+    $position = $_POST["position"];
     $uploadDir = 'image/';
     $image = null;
 
@@ -38,10 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
     }
 
     // Préparez la requête de mise à jour
-    $stmt = $PDO->prepare("UPDATE slider SET titre = :titre, description = :description, image = :image WHERE id = :id");
+    $stmt = $PDO->prepare("UPDATE slider SET titre = :titre, description = :description, position = :position,  image = :image WHERE id = :id");
     $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
     $stmt->bindParam(':description', $description, PDO::PARAM_STR);
     $stmt->bindParam(':image', $image, PDO::PARAM_STR);
+    $stmt->bindParam(':position', $position, PDO::PARAM_STR);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
     // Exécutez la requête et redirigez ou affichez un message d'erreur

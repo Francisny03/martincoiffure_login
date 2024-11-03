@@ -4,6 +4,7 @@ include('include/header.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $slider_name = $_POST["titre"];
     $slider_st = $_POST["description"];
+    $position_slider = $_POST["position"];
     $uploadDir = 'image/';
 
     // Vérifier et traiter la première image
@@ -21,13 +22,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insertion des données dans la base de données
     try {
-        $stmt = getConn()->prepare("INSERT INTO slider (titre, description, image) VALUES (:titre, :description, :image)");
+        $stmt = getConn()->prepare("INSERT INTO slider (titre, description, image, position) VALUES (:titre, :description, :image, :position)");
         $stmt->bindParam(':titre', $slider_name, PDO::PARAM_STR);
         $stmt->bindParam(':description', $slider_st, PDO::PARAM_STR);
+        $stmt->bindParam(':position', $position_slider, PDO::PARAM_STR);
         $stmt->bindParam(':image', $services_img, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            header('Location:service.php');
+            header('Location:slider.php');
         exit();
         } else {
             echo "Erreur lors de l'enregistrement dans la base de données";

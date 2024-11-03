@@ -44,6 +44,7 @@ $(document).ready(function () {
                         $('#popupSlider input[name="titre"]').val(data.titre);
                         $('#popupSlider input[name="description"]').val(data.description);
                         $('#popupSlider input[name="id"]').val(data.id);
+                        $('#popupSlider input[name="position"]').val(data.position);
                         $("#popupSlider").show();
                     }
                 },
@@ -53,10 +54,44 @@ $(document).ready(function () {
                 }
             });
         });
+        document.getElementById('closePopupSlider').addEventListener('click', function () {
+            document.getElementById('popupSlider').style.display = 'none';
+        });
     });
 
-    // Close the edit popup
-    $("#popupSlider .closePopupbtn").on("click", function () {
-        $("#popupSlider").hide();
+
+    $(".modifier_service").each(function () {
+        $(this).on("click", function () {
+            var serviceId = $(this).data("id");
+
+            // Fetch slider data with AJAX
+            $.ajax({
+                url: "get_service.php",
+                method: "GET",
+                data: { id: serviceId },
+                dataType: "json",
+                success: function (data) {
+                    if (data.error) {
+                        console.log(data.error);
+                        alert(data.error);
+                    } else {
+                        // Populate popup fields with the received data
+                        $('#popupService input[name="titre"]').val(data.titre);
+                        $('#popupService input[name="description"]').val(data.description);
+                        $('#popupService input[name="position"]').val(data.position);
+                        $('#popupService input[name="id"]').val(data.id);
+                        $("#popupService").show();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Data loading error: ", error);
+                    alert("Une erreur s'est produite lors du chargement des données.");
+                }
+            });
+        });
+        document.getElementById('closeServiceModifierBtn').addEventListener('click', function () {
+            document.getElementById('popupService').style.display = 'none';
+        });
     });
+
 });

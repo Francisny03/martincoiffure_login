@@ -27,7 +27,7 @@ echo $texte_tronque = tronquerTexte($results["description"], 70); // Limite à 5
     <td><img src="<?php echo $results["image1"] ?>" alt=""></td>
     <td><img src="<?php echo $results["image2"] ?>" alt=""></td>
     <td><?php echo $results["position"] ?></td>
-    <td><button class="button btns voirPlusBtn"><a href="created_service">Modifier</a></button></td>
+    <td><button class="button btns modifier_service" data-id="<?php echo htmlspecialchars($results["id"]); ?>">Modifier</button></td>
 
 </tr>
 <?php
