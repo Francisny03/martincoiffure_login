@@ -1,11 +1,14 @@
 <?php
 include('include/header.php');
 
+$PDO = getConn();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $galerie_name = $_POST["titre"];
+    $position = $_POST['position'];
     $uploadDir = 'image/';
-    $services_imgs = []; // Initialize the variable to avoid "undefined variable" error
-    $services_imgs_json = json_encode($services_imgs);
+    $galeries_imgs = []; // Initialize the variable to avoid "undefined variable" error
+    $galeries_imgs_json = json_encode($galeries_imgs);
 
     // Traitement de l'image principale
     $services_img = '';
@@ -28,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $imagePath = $uploadDir . $images_newName;
 
                 if (move_uploaded_file($tmp_name, $imagePath)) {
-                    $services_imgs[] = $imagePath;
+                    $galeries_imgs[] = $imagePath;
                 } else {
                     echo "Erreur lors du téléchargement de l'image supplémentaire n°" . ($key + 1) . ".<br>";
                 }
@@ -37,14 +40,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Convert the array of additional images to JSON format
-    $services_imgs_json = json_encode($services_imgs);
+    $galeries_imgs_json = json_encode($galeries_imgs);
 
     // Insertion dans la base de données
     try {
-        $stmt = getConn()->prepare("INSERT INTO galeries (titre, image, images) VALUES (:titre, :image, :images)");
+        $stmt = getConn()->prepare("INSERT INTO galeries (titre, image, images, position) VALUES (:titre, :image, :images, :position)");
         $stmt->bindParam(':titre', $galerie_name, PDO::PARAM_STR);
         $stmt->bindParam(':image', $services_img, PDO::PARAM_STR);
-        $stmt->bindParam(':images', $services_imgs_json, PDO::PARAM_STR);
+        $stmt->bindParam(':images', $galeries_imgs_json, PDO::PARAM_STR);
+        $stmt->bindParam(':position', $position, PDO::PARAM_STR);
+
        
         if ($stmt->execute()) {
             header('Location:galerie.php');

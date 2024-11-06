@@ -2,6 +2,7 @@
 include('include/header.php');
 ?>
 
+
 <span class="p3"></span>
 
 <div class="bloc">
@@ -22,7 +23,7 @@ include('include/header.php');
 <div class="count_number_create flex width_margin">
     <div class="count_number flex">
         <p>Slider:</p>
-        <p>12</p>
+        <p id="sliderCount"></p>
     </div>
     <div class="create_new">
         <button type="submit" id="myBtn" class="button">Créer un service</button>

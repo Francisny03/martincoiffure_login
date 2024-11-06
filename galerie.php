@@ -22,7 +22,7 @@ include('include/header.php')
 <div class="count_number_create flex width_margin">
     <div class="count_number flex">
         <p>Galérie:</p>
-        <p>12</p>
+        <p id="serviceGalerie"></p>
     </div>
     <div class="create_new">
         <button type="submit" id="myBtn" class="button">Créer un album</button>
@@ -64,6 +64,11 @@ include('include/header.php')
                 </div>
                 <br><br>
                 <div class="create_items">
+                    <p class="space_padding_left">Position</p>
+                    <input type="text" placeholder="Entrez la position..." name="position">
+                </div>
+                <br><br>
+                <div class="create_items">
                     <p class="space_padding_left">Uploader l'image principale</p>
                     <input type="file" name="image" required>
                 </div>
@@ -78,6 +83,48 @@ include('include/header.php')
             </div>
 
             <button type="button" class="closePopupbtn flex" id="closePopupBtn">&times;</button>
+        </div>
+    </form>
+
+</div>
+<br>
+<br>
+<br>
+
+
+<div class="popup" id="popupGalerie">
+    <form action="update_galerie.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id_galerie" id="galerieId"> <!-- ID caché pour l'update -->
+        <div class="popup_content" id="popup">
+            <div class="create_new space_bottom">
+                <p>Modifier un album</p>
+            </div>
+            <div class="popup_content_items space_padding">
+                <div class="create_items">
+                    <p class="space_padding_left">Nom de l'album</p>
+                    <input type="text" placeholder="Entrez le nom du service..." name="titre">
+                </div>
+                <br><br>
+                <div class="create_items">
+                    <p class="space_padding_left">Position</p>
+                    <input type="text" placeholder="Entrez la position..." name="position">
+                </div>
+                <br><br>
+                <div class="create_items">
+                    <p class="space_padding_left">Uploader l'image principale</p>
+                    <input type="file" name="image">
+                </div>
+                <div class="create_items">
+                    <p class="space_padding_left">Uploader les images supplémentaires</p>
+                    <input type="file" name="images[]" multiple>
+                </div>
+            </div>
+
+            <div class="create_new space_top">
+                <button type="submit" class="button">Modifier un service</button>
+            </div>
+
+            <button type="button" class="closePopupbtn flex" id="closeGalerieModifierBtn">&times;</button>
         </div>
     </form>
 

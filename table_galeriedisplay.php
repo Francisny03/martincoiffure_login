@@ -1,6 +1,6 @@
 <?php
 $PDO = getConn();
-$req = "SELECT * FROM galeries ";
+$req = "SELECT * FROM galeries";
 
 $stmt = $PDO->prepare($req);
 $stmt->execute();
@@ -28,7 +28,8 @@ foreach($result as $results) {
         ?>
     </td>
     <td><?php echo $results["position"] ?></td>
-    <td><button class="button btns"><a href="created_service">Modifier</a></button></td>
+    <td><button class="button btns modifier_galerie" data-id_galerie="<?php echo htmlspecialchars($results["id_galerie"]); ?>">Modifier</button></td>
+
 </tr>
 <?php
 }
