@@ -1,12 +1,11 @@
 <?php
-$PDO = getConn();
+include('function/function.php');
 $req = "SELECT * FROM slider ";
 
-$stmt = $PDO->prepare($req);
+$stmt = $conn->prepare($req);
 $stmt->execute();
 $result = $stmt->fetchAll();
 ?>
-
 
 <?php
             foreach($result as $results){
@@ -26,7 +25,8 @@ echo $texte_tronque = tronquerTexte($results["description"], 70); // Limite à 5
     </td>
     <td><img src="<?php echo $results["image"] ?>" alt=""></td>
     <td><?php echo $results["position"] ?></td>
-    <td><button class="button btns voirPlusBtn" data-id="<?php echo htmlspecialchars($results["id"]); ?>">Modifier</button></td>
+    <td><button class="button btns voirPlusBtn"
+            data-id="<?php echo htmlspecialchars($results["id"]); ?>">Modifier</button></td>
 
 </tr>
 <?php

@@ -22,7 +22,7 @@ include('include/header.php')
 <div class="count_number_create flex width_margin">
     <div class="count_number flex">
         <p>Galérie:</p>
-        <p id="serviceGalerie"></p>
+        <p id="imagesCount"></p>
     </div>
     <div class="create_new">
         <button type="submit" id="myBtn" class="button">Créer un album</button>
@@ -132,7 +132,6 @@ include('include/header.php')
 <br>
 <br>
 <br>
-
 
 <?php
 include('include/footer.php')

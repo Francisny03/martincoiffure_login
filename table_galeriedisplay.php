@@ -1,12 +1,11 @@
 <?php
-$PDO = getConn();
+include('include/db.php');
 $req = "SELECT * FROM galeries";
 
-$stmt = $PDO->prepare($req);
+$stmt = $conn->prepare($req);
 $stmt->execute();
 $result = $stmt->fetchAll();
 ?>
-
 
 <?php
 foreach($result as $results) {
@@ -28,7 +27,8 @@ foreach($result as $results) {
         ?>
     </td>
     <td><?php echo $results["position"] ?></td>
-    <td><button class="button btns modifier_galerie" data-id_galerie="<?php echo htmlspecialchars($results["id_galerie"]); ?>">Modifier</button></td>
+    <td><button class="button btns modifier_galerie"
+            data-id_galerie="<?php echo htmlspecialchars($results["id_galerie"]); ?>">Modifier</button></td>
 
 </tr>
 <?php

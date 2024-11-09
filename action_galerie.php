@@ -1,8 +1,6 @@
 <?php
 include('include/header.php');
 
-$PDO = getConn();
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $galerie_name = $_POST["titre"];
     $position = $_POST['position'];
@@ -44,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insertion dans la base de données
     try {
-        $stmt = getConn()->prepare("INSERT INTO galeries (titre, image, images, position) VALUES (:titre, :image, :images, :position)");
+        $stmt = $conn->prepare("INSERT INTO galeries (titre, image, images, position) VALUES (:titre, :image, :images, :position)");
         $stmt->bindParam(':titre', $galerie_name, PDO::PARAM_STR);
         $stmt->bindParam(':image', $services_img, PDO::PARAM_STR);
         $stmt->bindParam(':images', $galeries_imgs_json, PDO::PARAM_STR);

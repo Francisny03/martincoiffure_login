@@ -1,18 +1,8 @@
 <?php
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 header('Content-Type: application/json'); // Assure que la réponse est au format JSON
-
-function getConn() {
-    try {
-        $PDO = new PDO("mysql:host=localhost;dbname=martin_coiffure;charset=utf8", "root", "");
-        $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $PDO;
-    } catch (PDOException $e) {
-        die("Erreur de connexion : " . $e->getMessage());
-    }
-}
-
-// Appeler getConn pour obtenir l'instance PDO
-$PDO = getConn();
+include('include/db.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
     $id = (int)$_POST["id"];
@@ -32,14 +22,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
         }
     } else {
         // Si aucune nouvelle image n'est téléchargée, récupérez l'image actuelle
-        $stmt = $PDO->prepare("SELECT image FROM slider WHERE id = :id");
+        $stmt = $conn->prepare("SELECT image FROM slider WHERE id = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $image = $stmt->fetchColumn();
     }
 
     // Préparez la requête de mise à jour
-    $stmt = $PDO->prepare("UPDATE slider SET titre = :titre, description = :description, position = :position,  image = :image WHERE id = :id");
+    $stmt = $conn->prepare("UPDATE slider SET titre = :titre, description = :description, position = :position,  image = :image WHERE id = :id");
     $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
     $stmt->bindParam(':description', $description, PDO::PARAM_STR);
     $stmt->bindParam(':image', $image, PDO::PARAM_STR);

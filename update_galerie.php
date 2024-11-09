@@ -1,17 +1,8 @@
 <?php
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 header('Content-Type: application/json');
-
-function getConn() {
-    try {
-        $PDO = new PDO("mysql:host=localhost;dbname=martin_coiffure;charset=utf8", "root", "");
-        $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $PDO;
-    } catch (PDOException $e) {
-        die("Erreur de connexion : " . $e->getMessage());
-    }
-}
-
-$PDO = getConn();
+include('include/db.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_galerie"])) {
     $id = (int)$_POST["id_galerie"];
@@ -20,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_galerie"])) {
     $uploadDir = 'image/';
     
     // Récupère les données actuelles
-    $stmtCurrent = $PDO->prepare("SELECT image, images FROM galeries WHERE id_galerie = :id");
+    $stmtCurrent = $conn->prepare("SELECT image, images FROM galeries WHERE id_galerie = :id");
     $stmtCurrent->bindParam(':id', $id, PDO::PARAM_INT);
     $stmtCurrent->execute();
     $currentData = $stmtCurrent->fetch(PDO::FETCH_ASSOC);
@@ -61,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_galerie"])) {
     $galerie_imgs_json = json_encode($galerie_imgs);
 
     // Préparez la requête de mise à jour
-    $stmt = $PDO->prepare("UPDATE galeries SET titre = :titre, image = :image, images = :images, position = :position WHERE id_galerie = :id");
+    $stmt = $conn->prepare("UPDATE galeries SET titre = :titre, image = :image, images = :images, position = :position WHERE id_galerie = :id");
     $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
     $stmt->bindParam(':image', $galerie_img_principale, PDO::PARAM_STR);
     $stmt->bindParam(':images', $galerie_imgs_json, PDO::PARAM_STR);

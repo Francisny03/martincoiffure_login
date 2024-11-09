@@ -1,25 +1,12 @@
 <?php
 header('Content-Type: application/json'); // Assure que la réponse est au format JSON
-function getConn() {
-    try {
-        $PDO = new PDO("mysql:host=localhost;dbname=martin_coiffure;charset=utf8", "root", "");
-        $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $PDO;
-    } catch (PDOException $e) {
-        die("Erreur de connexion : " . $e->getMessage());
-    }
-}
-
-$response = [];
-
-// Appeler getConn pour obtenir l'instance PDO
-$PDO = getConn();
+include('include/db.php');
 
 if (isset($_GET['id_galerie'])) {
     $id_galerie = (int)$_GET['id_galerie'];
 
-    if ($PDO) {
-        $stmt = $PDO->prepare("SELECT * FROM galeries WHERE id_galerie = :id");
+    if ($conn) {
+        $stmt = $conn->prepare("SELECT * FROM galeries WHERE id_galerie = :id");
         $stmt->bindParam(':id', $id_galerie, PDO::PARAM_INT);
         $stmt->execute();
 

@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insertion des données dans la base de données
     try {
-        $stmt = getConn()->prepare("INSERT INTO slider (titre, description, image, position) VALUES (:titre, :description, :image, :position)");
+        $stmt = $conn->prepare("INSERT INTO slider (titre, description, image, position) VALUES (:titre, :description, :image, :position)");
         $stmt->bindParam(':titre', $slider_name, PDO::PARAM_STR);
         $stmt->bindParam(':description', $slider_st, PDO::PARAM_STR);
         $stmt->bindParam(':position', $position_slider, PDO::PARAM_STR);

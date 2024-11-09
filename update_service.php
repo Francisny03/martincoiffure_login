@@ -1,18 +1,6 @@
 <?php
 header('Content-Type: application/json'); // Assure que la réponse est au format JSON
-
-function getConn() {
-    try {
-        $PDO = new PDO("mysql:host=localhost;dbname=martin_coiffure;charset=utf8", "root", "");
-        $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $PDO;
-    } catch (PDOException $e) {
-        die("Erreur de connexion : " . $e->getMessage());
-    }
-}
-
-// Appeler getConn pour obtenir l'instance PDO
-$PDO = getConn();
+include('include/db.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
     $id = (int)$_POST["id"];
@@ -34,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
         }
     } else {
         // Récupérer l'image actuelle si aucune nouvelle image n'est téléchargée
-        $stmt_image1 = $PDO->prepare("SELECT image1 FROM services WHERE id = :id");
+        $stmt_image1 = $conn->prepare("SELECT image1 FROM services WHERE id = :id");
         $stmt_image1->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt_image1->execute();
         $image1 = $stmt_image1->fetchColumn();
@@ -51,14 +39,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
         }
     } else {
         // Récupérer l'image actuelle si aucune nouvelle image n'est téléchargée
-        $stmt_image2 = $PDO->prepare("SELECT image2 FROM services WHERE id = :id");
+        $stmt_image2 = $conn->prepare("SELECT image2 FROM services WHERE id = :id");
         $stmt_image2->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt_image2->execute();
         $image2 = $stmt_image2->fetchColumn();
     }
 
     // Préparez la requête de mise à jour
-    $stmt = $PDO->prepare("UPDATE services SET titre = :titre, description = :description, position = :position, image1 = :image1, image2 = :image2 WHERE id = :id");
+    $stmt = $conn->prepare("UPDATE services SET titre = :titre, description = :description, position = :position, image1 = :image1, image2 = :image2 WHERE id = :id");
     $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
     $stmt->bindParam(':description', $description, PDO::PARAM_STR);
     $stmt->bindParam(':image1', $image1, PDO::PARAM_STR);

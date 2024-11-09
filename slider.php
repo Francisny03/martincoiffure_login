@@ -26,7 +26,7 @@ include('include/header.php');
         <p id="sliderCount"></p>
     </div>
     <div class="create_new">
-        <button type="submit" id="myBtn" class="button">Créer un service</button>
+        <button type="submit" id="myBtn" class="button">Créer un slider</button>
     </div>
 </div>
 <br>
@@ -58,17 +58,17 @@ include('include/header.php');
     <form action="action_slider.php" method="POST" enctype="multipart/form-data">
         <div class="popup_content" id="popup">
             <div class="create_new space_bottom">
-                <p>Créer un service</p>
+                <p>Créer un slider</p>
             </div>
             <div class="popup_content_items space_padding">
                 <div class="create_items">
-                    <p class="space_padding_left">Nom du service</p>
+                    <p class="space_padding_left">Nom du slider</p>
                     <input type="text" placeholder="entrez le nom du service..." name="titre">
                 </div>
                 <br>
                 <br>
                 <div class="create_items">
-                    <p class="space_padding_left">Description du service</p>
+                    <p class="space_padding_left">Description du slider</p>
                     <input type="text" placeholder="entrez la description du service..." name="description">
                 </div>
                 <br>
@@ -86,7 +86,7 @@ include('include/header.php');
             </div>
 
             <div class="create_new space_top">
-                <button type="submit" class="button">Créer un service</button>
+                <button type="submit" class="button">Créer un slider</button>
             </div>
 
             <button type="button" class="closePopupbtn flex" id="closePopupBtn">&times;</button>
@@ -110,7 +110,7 @@ include('include/header.php');
                 <br>
                 <br>
                 <div class="create_items">
-                    <p class="space_padding_left">Description du service</p>
+                    <p class="space_padding_left">Description du slider</p>
                     <input type="text" placeholder="Entrez le sous-titre..." name="description">
                 </div>
                 <br>
@@ -127,7 +127,7 @@ include('include/header.php');
                 </div>
                 <br>
                 <br>
-                <button type="submit" class="button">Modifier le service</button>
+                <button type="submit" class="button">Modifier le slider</button>
                 <button type="button" class="closePopupbtn flex" id="closePopupSlider">&times;</button>
 
             </div>
@@ -136,12 +136,9 @@ include('include/header.php');
 
     </form>
 </div>
-
 <br>
 <br>
 <br>
-
-
 
 <?php
 include('include/footer.php')

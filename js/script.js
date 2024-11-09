@@ -102,10 +102,16 @@ $(document).ready(function () {
     // Fonction pour récupérer les comptes de services et de sliders
     function fetchCounts() {
         console.log("Initialisation fetch");
+
         fetch('service_count.php') // Appel au script PHP
             .then(response => response.json()) // Conversion de la réponse en JSON
             .then(data => {
                 console.log("Données reçues du serveur :", data);
+
+                if (!data) {
+                    console.error("Aucune donnée reçue du serveur.");
+                    return;
+                }
 
                 // Vérifiez l'existence de l'élément sliderCount avant de l'utiliser
                 const sliderCountElem = document.getElementById('sliderCount');
@@ -125,20 +131,19 @@ $(document).ready(function () {
                     console.error("L'élément 'serviceCount' n'existe pas dans le DOM");
                 }
 
-                // Vérifiez l'existence de l'élément sliderCount avant de l'utiliser
+                // Vérifiez l'existence de l'élément imagesCount avant de l'utiliser
                 const imagesCountElem = document.getElementById('imagesCount');
                 if (imagesCountElem) {
                     imagesCountElem.textContent = data.total_images;
-                    console.log("Mise à jour de sliderCount effectuée");
+                    console.log("Mise à jour de imagesCount effectuée");
                 } else {
-                    console.error("L'élément 'sliderCount' n'existe pas dans le DOM");
+                    console.error("L'élément 'imagesCount' n'existe pas dans le DOM");
                 }
             })
             .catch(error => {
                 console.error("Erreur lors de la récupération des données :", error);
             });
     }
-
 
     console.log('service done')
 
@@ -204,6 +209,3 @@ $(document).ready(function () {
 
 
 });
-
-
-

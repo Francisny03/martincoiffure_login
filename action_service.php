@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insertion des données dans la base de données
     try {
-        $stmt = getConn()->prepare("INSERT INTO services (titre, description, image1, image2, position) VALUES (:titre, :description, :image1, :image2, :position)");
+        $stmt = $conn->prepare("INSERT INTO services (titre, description, image1, image2, position) VALUES (:titre, :description, :image1, :image2, :position)");
         $stmt->bindParam(':titre', $services_name, PDO::PARAM_STR);
         $stmt->bindParam(':description', $services_st, PDO::PARAM_STR);
         $stmt->bindParam(':image1', $services_img1, PDO::PARAM_STR);

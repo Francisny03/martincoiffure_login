@@ -1,5 +1,7 @@
 <?php
-include('function/function.php');
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+include('db.php')
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +24,7 @@ include('function/function.php');
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
 
     <!-- mystyle -->
-    <link rel="stylesheet" href="SCSS/style.scss?<?= rand() ?>">
+    <link rel="stylesheet" href="scss/style.css?<?= rand() ?>">
 
     <!-- js bootstrap -->
 
