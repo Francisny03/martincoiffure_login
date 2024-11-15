@@ -1,5 +1,8 @@
 <?php
-include('include/header.php')
+session_start();
+include('function/function.php');
+deconnexionSession();
+include('include/header.php');
 ?>
 
 <span class="p4"></span>

@@ -434,13 +434,33 @@ td {
 .admin_page .container .right_section .right_section_items {
   width: 100%;
   height: 100%;
+  position: relative;
+}
+.admin_page .container .right_section .right_section_items .lottie_rect {
+  position: absolute;
+  width: 309px;
+  height: 344px;
+  background: rgba(255, 255, 255, 0.179);
+  top: 146px;
+  left: 170px;
+  border-radius: 10px;
+}
+.admin_page .container .right_section .right_section_items .lottie_rect .lottie_logo {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  bottom: -15px;
+  left: 279px;
+}
+.admin_page .container .right_section .right_section_items .lottie_rect .lottie_logo img {
+  width: 100%;
+  height: 100%;
 }
 .admin_page .container .right_section .right_section_items .right_section_img {
   width: 100%;
   height: 100%;
 }
 .admin_page .container .right_section .right_section_items .right_section_img img {
-  position: relative;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -449,8 +469,8 @@ td {
 }
 .admin_page .container .right_section .right_section_items .lottie {
   position: absolute;
-  top: 30%;
-  left: 60%;
+  top: 100px;
+  left: 150px;
   width: 350px;
   height: 350px;
 }

@@ -1,5 +1,16 @@
 <?php
+session_start();
 include('include/header.php');
+include('function/function.php');
+deconnexionSession();
+
+// Vérifie si l'utilisateur est connecté
+if (!isset($_SESSION['id_admin'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$userEmail = $_SESSION['user_email'];
 ?>
 
 <span class="p1"></span>
@@ -15,8 +26,7 @@ include('include/header.php');
             </div>
         </div>
     </div>
-    <br>
-    <br>
+    <br><br>
     <div class="bloc_content width_margin">
         <div class="all_card flex wrap space_top space_bottom">
             <div class="stat_card">
@@ -68,11 +78,7 @@ include('include/header.php');
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>
 
-<?php
-include('include/footer.php')
-?>
+<?php include('include/footer.php'); ?>

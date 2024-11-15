@@ -2,31 +2,37 @@
 session_start();
 include('include/db.php');
 
-// Vérifier si l'email et le mot de passe sont bien envoyés via POST
+// Activer l'affichage des erreurs pour le débogage
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 if (isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Requête pour vérifier si l'utilisateur existe dans la base de données
-    $stmt = $conn->prepare("SELECT * FROM admin WHERE email = :email");
-    $stmt->bindParam(":email", $email);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    try {
+        $stmt = $conn->prepare("SELECT id_admin, password FROM admin WHERE email = :email");
+        $stmt->bindParam(":email", $email);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Vérifier si l'utilisateur existe et si le mot de passe en clair correspond
-    if ($user && $password === $user['password']) {
-        // Connexion réussie : création de la session
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_email'] = $user['email'];
-        
-        // Redirection vers la page d'accueil
-        header("Location: index.php");
-        exit();
-    } else {
-        // Erreur : email ou mot de passe incorrect
-        echo "<p>Email ou mot de passe incorrect.</p>";
+        if ($user) {
+            // Vérifie le mot de passe
+            if (password_verify($password, $user['password'])) {
+                $_SESSION['user_id'] = $user['id_admin']; // Enregistre l'ID admin dans la session
+                $_SESSION['user_email'] = $user['email']; // Enregistre l'email dans la session
+                header("Location: index.php"); // Redirige vers l'index
+                exit();
+            } else {
+                echo "<p>Mot de passe incorrect.</p>";
+            }
+        } else {
+            echo "<p>Adresse e-mail incorrecte.</p>";
+        }
+    } catch (PDOException $e) {
+        echo "Erreur de connexion à la base de données : " . $e->getMessage();
     }
 } else {
     echo "<p>Veuillez entrer un email et un mot de passe.</p>";
 }
-

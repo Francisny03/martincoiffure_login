@@ -13,6 +13,11 @@ $stmt_count_slider = $conn->prepare($req_count_slider);
 $stmt_count_slider->execute();
 $total_slider = $stmt_count_slider->fetch(PDO::FETCH_ASSOC)['total_slider'];
 
+// Requête pour compter les admin
+$req_count_admin = "SELECT COUNT(*) AS total_admin FROM admin";
+$stmt_count_admin = $conn->prepare($req_count_admin);
+$stmt_count_admin->execute();
+$total_admin = $stmt_count_admin->fetch(PDO::FETCH_ASSOC)['total_admin'];
 
 // Requête pour compter les images
 $req_count_galerie = "SELECT COUNT(*) AS total_images FROM galeries";

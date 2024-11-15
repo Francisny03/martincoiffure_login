@@ -1,12 +1,9 @@
 <?php
-session_start();
-include('function/function.php');
-deconnexionSession();
 include('include/header.php');
 ?>
 
 
-<span class="p3"></span>
+<span class="p5"></span>
 
 <div class="bloc">
     <div class="slider">
@@ -15,7 +12,7 @@ include('include/header.php');
         </div>
         <div class="slider_filter flex">
             <div class="slider_filter_text">
-                <p>Slider</p>
+                <p>Admin</p>
             </div>
         </div>
     </div>
@@ -25,8 +22,8 @@ include('include/header.php');
 
 <div class="count_number_create flex width_margin">
     <div class="count_number flex">
-        <p>Slider:</p>
-        <p id="sliderCount"></p>
+        <p>Admin:</p>
+        <p id="adminCount"></p>
     </div>
     <div class="create_new">
         <button type="submit" id="myBtn" class="button">Créer un slider</button>
@@ -40,16 +37,17 @@ include('include/header.php');
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>image</th>
-                <th>Position</th>
-                <th>Plus</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
+                <th>Modifier</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            include('table_sliderdisplay.php')
+            include('table_admindisplay.php')
             ?>
         </tbody>
     </table>

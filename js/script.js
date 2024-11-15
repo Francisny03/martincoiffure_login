@@ -131,6 +131,15 @@ $(document).ready(function () {
                     console.error("L'élément 'serviceCount' n'existe pas dans le DOM");
                 }
 
+                 // Vérifiez l'existence de l'élément adminCount avant de l'utiliser
+                 const adminCountElem = document.getElementById('adminCount');
+                 if (adminCountElem) {
+                    adminCountElem.textContent = data.total_admin;
+                     console.log("Mise à jour de serviceCount effectuée");
+                 } else {
+                     console.error("L'élément 'adminCount' n'existe pas dans le DOM");
+                 }
+
                 // Vérifiez l'existence de l'élément imagesCount avant de l'utiliser
                 const imagesCountElem = document.getElementById('imagesCount');
                 if (imagesCountElem) {

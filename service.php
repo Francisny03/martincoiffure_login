@@ -1,5 +1,16 @@
 <?php
+session_start();
 include('include/header.php');
+include('function/function.php');
+deconnexionSession();
+
+// Vérifie si l'utilisateur est connecté
+if (!isset($_SESSION['id_admin'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$userEmail = $_SESSION['user_email'];
 ?>
 
 <span class="p2"></span>
