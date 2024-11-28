@@ -2,15 +2,10 @@
 session_start();
 include('include/header.php');
 include('function/function.php');
-deconnexionSession();
 
-// Vérifie si l'utilisateur est connecté
-if (!isset($_SESSION['id_admin'])) {
-    header("Location: login.php");
-    exit();
-}
-
-$userEmail = $_SESSION['user_email'];
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 ?>
 
 <span class="p2"></span>
@@ -43,24 +38,27 @@ $userEmail = $_SESSION['user_email'];
 <br>
 
 <div class="bloc_content width_margin">
-    <table id="example" class="table table-striped" style="width:100%">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>Photo avant</th>
-                <th>Photo arrière</th>
-                <th>Position</th>
-                <th>Plus</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
+    <div class="table-responsive">
+        <table id="example" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Photo avant</th>
+                    <th>Photo arrière</th>
+                    <th>Position</th>
+                    <th>Plus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
             include('table_servicedisplay.php')
             ?>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 
 <div class="popup" id="popup">

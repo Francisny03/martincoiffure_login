@@ -1,5 +1,4 @@
 <?php
-session_start();
 include('include/db.php'); // Connexion à la base de données
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

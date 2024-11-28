@@ -1,13 +1,14 @@
 <?php
-$req = "SELECT * FROM admin ";
+include('include/db.php');
+$req_admin = "SELECT * FROM admin";
 
-$stmt = $conn->prepare($req);
-$stmt->execute();
-$result = $stmt->fetchAll();
+$stmt_admin = $conn->prepare($req_admin);
+$stmt_admin->execute();
+$result_admin = $stmt_admin->fetchAll();
 ?>
 
 <?php
-            foreach($result as $results){
+            foreach($result_admin as $results){
 ?>
 <tr>
 
@@ -29,8 +30,8 @@ $result = $stmt->fetchAll();
     <td>
         <?php echo $results["updated_at"] ?>
     </td>
-    <td><button class="button btns voirPlusBtn"
-            data-id="<?php echo htmlspecialchars($results["id_admin"]); ?>">Modifier</button>
+    <td><button class="button btns modifier_admin"
+            data-id_admin="<?php echo htmlspecialchars($results["id_admin"]); ?>">Modifier</button>
     </td>
 
 </tr>

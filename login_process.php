@@ -1,38 +1,44 @@
 <?php
-session_start();
+session_start(); 
 include('include/db.php');
 
-// Activer l'affichage des erreurs pour le débogage
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 
 if (isset($_POST['email']) && isset($_POST['password'])) {
+    $id_admin = isset($_POST['id_admin']) ? (int)$_POST['id_admin'] : null;
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $role = isset($_POST['role']) ? $_POST['role'] : null;
 
     try {
-        $stmt = $conn->prepare("SELECT id_admin, password FROM admin WHERE email = :email");
+        $stmt = $conn->prepare("SELECT * FROM admin WHERE email = :email");
         $stmt->bindParam(":email", $email);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user) {
-            // Vérifie le mot de passe
-            if (password_verify($password, $user['password'])) {
-                $_SESSION['user_id'] = $user['id_admin']; // Enregistre l'ID admin dans la session
-                $_SESSION['user_email'] = $user['email']; // Enregistre l'email dans la session
-                header("Location: index.php"); // Redirige vers l'index
-                exit();
-            } else {
-                echo "<p>Mot de passe incorrect.</p>";
-            }
+        if ($user && password_verify($password, $user['password'])) {
+            // Stockez les données dans la session
+            $_SESSION['id_admin'] = $user['id_admin'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['role'] = $user['role'];
+            //var_dump($_SESSION['role']);
+//exit();
+            header("Location: index.php");
+            exit();
         } else {
-            echo "<p>Adresse e-mail incorrecte.</p>";
+            // Redirigez avec un message d'erreur
+            header("Location: login.php?error=Email ou mot de passe incorrect.");
+            exit();
         }
     } catch (PDOException $e) {
-        echo "Erreur de connexion à la base de données : " . $e->getMessage();
+        // En cas d'erreur, redirigez avec un message
+        header("Location: login.php?error=Erreur interne. Réessayez plus tard.");
+        exit();
     }
 } else {
-    echo "<p>Veuillez entrer un email et un mot de passe.</p>";
+    header("Location: login.php?error=Veuillez remplir tous les champs.");
+    exit();
 }
+?>

@@ -373,7 +373,7 @@ td {
         .popup_content_items {
             background-color: white;
 
-            .create_items input[type="text"] {
+            .create_items input[type="text"], select {
                 width: 40%;
                 padding: 8px;
                 border: 1px solid #ccc;
@@ -461,7 +461,7 @@ td {
                             }
 
                             input[type="email"],
-                            input[type="password"] {
+                            input[type="password"], select {
                                 border: none;
                                 background: none;
                                 width: 83%;

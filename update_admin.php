@@ -1,47 +1,36 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
 header('Content-Type: application/json'); // Assure que la réponse est au format JSON
 include('include/db.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])) {
-    $id = (int)$_POST["id_admin"];
-    $nom = $_POST["titre"];
-    $description = $_POST["description"];
-    $position = $_POST["position"];
-    $uploadDir = 'image/';
-    $image = null;
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_admin"])) {
+    $id_admin = (int)$_POST["id_admin"];
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $confirm_password = $_POST['confirm_password'];
+    $role = $_POST["role"];
 
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $image_ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-        $image_newName = uniqid() . "_image." . $image_ext;
-        $image_path = $uploadDir . $image_newName;
-
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
-            $image = $image_path;
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        // Insertion des données dans la base de données
+        if ($password !== $confirm_password) {
+                                 echo "<p>Les mots de passe ne correspondent pas.</p>";
+            exit();
         }
-    } else {
-        // Si aucune nouvelle image n'est téléchargée, récupérez l'image actuelle
-        $stmt = $conn->prepare("SELECT image FROM slider WHERE id = :id");
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-        $image = $stmt->fetchColumn();
-    }
 
     // Préparez la requête de mise à jour
-    $stmt = $conn->prepare("UPDATE slider SET titre = :titre, description = :description, position = :position,  image = :image WHERE id = :id");
-    $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
-    $stmt->bindParam(':description', $description, PDO::PARAM_STR);
-    $stmt->bindParam(':image', $image, PDO::PARAM_STR);
-    $stmt->bindParam(':position', $position, PDO::PARAM_STR);
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt = $conn->prepare("UPDATE admin SET name = :name, email = :email, password = :password, role = :role WHERE id_admin = :id_admin");
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->bindParam(':password', $hashed_password, PDO::PARAM_STR);
+    $stmt->bindParam(':role', $role, PDO::PARAM_STR);
+    $stmt->bindParam(':id_admin', $id_admin, PDO::PARAM_INT);
 
     // Exécutez la requête et redirigez ou affichez un message d'erreur
     if ($stmt->execute()) {
-        header('Location: slider.php');
+        header('Location: super_admin.php');
         exit();
     } else {
-        echo json_encode(["error" => "Erreur lors de la mise à jour du slider."]);
+        echo json_encode(["error" => "Erreur lors de la mise à jour du service."]);
     }
 } else {
     echo json_encode(["error" => "Requête non valide (données manquantes)."]);

@@ -329,7 +329,7 @@ td {
 .popup form .popup_content .popup_content_items {
   background-color: white;
 }
-.popup form .popup_content .popup_content_items .create_items input[type=text] {
+.popup form .popup_content .popup_content_items .create_items input[type=text], .popup form .popup_content .popup_content_items select {
   width: 40%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -404,7 +404,7 @@ td {
   margin: 0 10px;
 }
 .admin_page .container .left_section .left_section_items .connexion_items form .input_login input[type=email],
-.admin_page .container .left_section .left_section_items .connexion_items form .input_login input[type=password] {
+.admin_page .container .left_section .left_section_items .connexion_items form .input_login input[type=password], .admin_page .container .left_section .left_section_items .connexion_items form .input_login select {
   border: none;
   background: none;
   width: 83%;

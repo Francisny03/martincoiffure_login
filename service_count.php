@@ -26,5 +26,5 @@ $stmt_count_galerie->execute();
 $total_images = $stmt_count_galerie->fetch(PDO::FETCH_ASSOC)['total_images'];
 
 // Retourne les trois nombres au format JSON
-echo json_encode(['total_services' => $total_services, 'total_slider' => $total_slider, 'total_images' => $total_images]);
+echo json_encode(['total_services' => $total_services, 'total_slider' => $total_slider, 'total_images' => $total_images, 'total_admin' => $total_admin]);
 ?>

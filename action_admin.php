@@ -5,36 +5,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $admin_name = $_POST["name"];
     $admin_email = $_POST["email"];
     $password = $_POST["password"];
+    $confirm_password = $_POST['confirm_password'];
+    $role = $_POST["role"];
 
-    // Vérifier et traiter la première image
-    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $image_ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-        $image_newName = uniqid() . "_image." . $image_ext;
-        $services_img = $uploadDir . $image_newName;
+    // Vérifier si l'utilisateur existe déjà
+    $stmt = $conn->prepare("SELECT * FROM admin WHERE email = :email");
+    $stmt->bindParam(":email", $email);
+    $stmt->execute();
+    $existingMail = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $services_img)) {
-            echo "Image  téléchargée avec succès.<br>";
-        } else {
-            echo "Erreur lors du téléchargement de l'image.<br>";
+    if ($existingMail) {
+        echo "<p>Le mail existe déjà.</p>";
+    } else {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        // Insertion des données dans la base de données
+        if ($password !== $confirm_password) {
+                                 echo "<p>Les mots de passe ne correspondent pas.</p>";
+            exit();
         }
-    }
-
-    // Insertion des données dans la base de données
-    try {
-        $stmt = $conn->prepare("INSERT INTO admin (titre, description, image, position) VALUES (:titre, :description, :image, :position)");
-        $stmt->bindParam(':titre', $slider_name, PDO::PARAM_STR);
-        $stmt->bindParam(':description', $slider_st, PDO::PARAM_STR);
-        $stmt->bindParam(':position', $position_slider, PDO::PARAM_STR);
-        $stmt->bindParam(':image', $services_img, PDO::PARAM_STR);
+        $stmt = $conn->prepare("INSERT INTO admin (name, email, password, role) VALUES (:name, :email, :password, :role)");
+        $stmt->bindParam(':name', $admin_name, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $admin_email, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $hashed_password, PDO::PARAM_STR);
+        $stmt->bindParam(':role', $role, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            header('Location:login.php');
-        exit();
+            header('Location:super_admin.php');
+            exit();
         } else {
-            echo "Erreur lors de l'enregistrement dans la base de données";
+                            echo "Erreur lors de l'enregistrement dans la base de données";
         }
-    } catch (PDOException $e) {
-        echo "Erreur de base de données : " . $e->getMessage();
     }
 } else {
     echo "Requête non valide (RNF)";

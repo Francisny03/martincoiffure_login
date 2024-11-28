@@ -1,8 +1,11 @@
 <?php
 session_start();
-include('function/function.php');
-deconnexionSession();
 include('include/header.php');
+include('function/function.php');
+
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 ?>
 
 <span class="p4"></span>
@@ -35,23 +38,26 @@ include('include/header.php');
 <br>
 
 <div class="bloc_content width_margin">
-    <table id="example" class="table table-striped" style="width:100%">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Image</th>
-                <th>Autres images</th>
-                <th>Position</th>
-                <th>Plus</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
+    <div class="table-responsive">
+        <table id="example" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titre</th>
+                    <th>Image</th>
+                    <th>Autres images</th>
+                    <th>Position</th>
+                    <th>Plus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
             include('table_galeriedisplay.php')
             ?>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 
 <div class="popup" id="popup">

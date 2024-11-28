@@ -96,6 +96,123 @@ $(document).ready(function () {
         });
     });
 
+    $(".modifier_admin").each(function () {
+        console.log("Initialisation de .modifier_admin");
+
+        $(this).on("click", function () {
+            console.log("Clique détecté sur .modifier_admin");
+
+            var adminId = $(this).data("id_admin"); // Vérifie si 'id_admin' est défini
+            console.log("ID admin récupéré");
+
+            if (!adminId) {
+                console.error("Erreur : ID de admin non défini");
+                alert("ID de admin manque.");
+                return;
+            }
+
+            // Fetch slider data with AJAX
+            $.ajax({
+                url: "get_admin.php",
+                method: "GET",
+                data: { id_admin: adminId },
+                dataType: "json",
+                success: function (data) {
+                    console.log("Réponse AJAX reçue :", data);
+
+                    if (data.error) {
+                        console.log("Erreur reçue du serveur :", data.error);
+                        alert(data.error);
+                    } else {
+                        console.log("Données de admin reçues : ", data);
+
+                        // Populate popup fields with the received data
+                        $('#popupAdmin input[name="name"]').val(data.name);
+                        $('#popupAdmin input[name="email"]').val(data.email);
+                        $('#popupAdmin input[name="password"]').val();
+                        $('#popupAdmin input[name="role"]').val(data.role);
+                        $('#popupAdmin input[name="id_admin"]').val(data.id_admin);
+                        $("#popupAdmin").show();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Erreur lors du chargement des données : ", error);
+                    alert("Une erreur s'est produite lors du chargement des données.");
+                }
+            });
+        });
+        document.getElementById('closePopupAdmin').addEventListener('click', function () {
+            document.getElementById('popupAdmin').style.display = 'none';
+        });
+    });
+
+    //empecher l'envoie du formulaire si données identique
+    document.querySelector("form[action='action_admin.php']").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const email = form.querySelector("input[name='email']").value;
+        const password = form.querySelector("input[name='password']").value;
+        const confirmPassword = form.querySelector("input[name='confirm_password']").value;
+
+        // Vérifier si les mots de passe correspondent
+        if (password !== confirmPassword) {
+            alert("Les mots de passe ne correspondent pas.");
+            return;
+        }
+
+        // Vérifier si l'email existe déjà
+        const response = await fetch('check_mail.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+        });
+
+        const result = await response.json();
+
+        if (result.exists) {
+            alert("L'email existe déjà.");
+            return;
+        }
+
+        // Si tout est bon, soumettre le formulaire
+        form.submit();
+    });
+
+    //empecher l'envoie du formulaire si données identique
+    document.querySelector("form[action='update_admin.php']").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const email = form.querySelector("input[name='email']").value;
+        const password = form.querySelector("input[name='password']").value;
+        const confirmPassword = form.querySelector("input[name='confirm_password']").value;
+
+        // Vérifier si les mots de passe correspondent
+        if (password !== confirmPassword) {
+            alert("Les mots de passe ne correspondent pas.");
+            return;
+        }
+
+        // Vérifier si l'email existe déjà
+        const response = await fetch('check_mail.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+        });
+
+        const result = await response.json();
+
+        if (result.exists) {
+            alert("L'email existe déjà.");
+            return;
+        }
+
+        // Si tout est bon, soumettre le formulaire
+        form.submit();
+    });
+
+
 
     console.log("ID galerie okay change");
 
@@ -131,14 +248,14 @@ $(document).ready(function () {
                     console.error("L'élément 'serviceCount' n'existe pas dans le DOM");
                 }
 
-                 // Vérifiez l'existence de l'élément adminCount avant de l'utiliser
-                 const adminCountElem = document.getElementById('adminCount');
-                 if (adminCountElem) {
+                // Vérifiez l'existence de l'élément adminCount avant de l'utiliser
+                const adminCountElem = document.getElementById('adminCount');
+                if (adminCountElem) {
                     adminCountElem.textContent = data.total_admin;
-                     console.log("Mise à jour de serviceCount effectuée");
-                 } else {
-                     console.error("L'élément 'adminCount' n'existe pas dans le DOM");
-                 }
+                    console.log("Mise à jour de serviceCount effectuée");
+                } else {
+                    console.error("L'élément 'adminCount' n'existe pas dans le DOM");
+                }
 
                 // Vérifiez l'existence de l'élément imagesCount avant de l'utiliser
                 const imagesCountElem = document.getElementById('imagesCount');
@@ -211,10 +328,12 @@ $(document).ready(function () {
     console.log("gestion popup");
 
     // Gestion de la fermeture de la popup
+
     document.getElementById('closeGalerieModifierBtn').addEventListener('click', function () {
         document.getElementById('popupGalerie').style.display = 'none';
     });
     console.log("TEST 5");
+
 
 
 });
